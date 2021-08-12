@@ -7,11 +7,15 @@ function getStorage(key) {
   return JSON.parse(window.localStorage.getItem(key))
 }
 
+function setStorage(key, value) {
+  window.localStorage.setItem(key, JSON.stringify(value))
+}
+
 function useLocalStorageState(key, inputValue = '') {
   const [value, setValue] = React.useState(() => getStorage(key) || inputValue)
 
   React.useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(value))
+    setStorage(key, value)
   }, [key, value])
 
   return [value, setValue]
